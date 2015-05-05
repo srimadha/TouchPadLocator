@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TouchPadLocator</string>
+    <string name="connectButton">Get Going!!</string>
+    <string name="serverHintText">Server address</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_tocuh_pad">TocuhPad</string>
+
+</resources>
