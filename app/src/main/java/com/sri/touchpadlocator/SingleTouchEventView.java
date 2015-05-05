@@ -23,14 +23,14 @@ public class SingleTouchEventView extends View {
 
     }
 
-
+    long stime = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float eventX = event.getX();
         float eventY = event.getY();
         Log.d(TAG, eventX + "");
-        long stime = 0, etime;
+        long etime;
         boolean leftClick = false;
 
         switch (event.getAction()) {
