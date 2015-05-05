@@ -30,24 +30,31 @@ public class SingleTouchEventView extends View {
         float eventX = event.getX();
         float eventY = event.getY();
         Log.d(TAG, eventX + "");
-        new ServerDiscovery().execute("nw-8677lm", eventX + "", eventY + "");
+        long stime = 0, etime;
+        boolean leftClick = false;
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-
-                return true;
+                stime = System.currentTimeMillis();
+                break;
             case MotionEvent.ACTION_MOVE:
 
                 break;
             case MotionEvent.ACTION_UP:
-                // nothing to do
+                etime = System.currentTimeMillis();
+                if(etime - stime < 1000){
+                    //Left Click.
+                    leftClick = true;
+                }
                 break;
             default:
                 return false;
         }
-
-        // Schedules a repaint.
-        invalidate();
+        String actionCode = "0";
+        if(leftClick){
+            actionCode = "1";
+        }
+        new ServerDiscovery().execute("nw-8677lm", eventX + "", eventY + "",actionCode);
         return true;
     }
 
@@ -64,7 +71,7 @@ public class SingleTouchEventView extends View {
             try {
                 socket = new Socket("nw-8677lm", 9001);
                 out = new PrintWriter(socket.getOutputStream(), true);
-                out.println(urls[1]+","+urls[2]+",0,0");
+                out.println(urls[1]+","+urls[2]+","+ urls[3]+",0");
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
